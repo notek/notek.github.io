@@ -47,7 +47,7 @@ strong {
 
 .brand {
   height: 30px;
-  border-bottom: none;
+  border-bottom: none !important;
   background: url(../img/logo.png) no-repeat left center;
 }
 
