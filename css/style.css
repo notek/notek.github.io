@@ -47,6 +47,7 @@ strong {
 
 .brand {
   height: 30px;
+  border-bottom: none;
   background: url(../img/logo.png) no-repeat left center;
 }
 
@@ -353,9 +354,6 @@ header h1{
   font-size: 30px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee;
-}
-.page-header .brand {
-  border-bottom: none;
 }
 
 .page-header h1 span.date{
