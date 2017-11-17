@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用socket.io搭建简单的聊天室 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="socket.io是一个基于nodejs第三方socket库，同时配合客户端的服务器端就能达到实时应用的要求。socket.io的客户端版本会智能检测浏览器是否支持socket，在不支持socket的浏览器上将视情况使用long-polling替代方案。
+在传统的webim应用上，使用长轮询是主流方">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="使用socket.io搭建简单的聊天室"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	<!-- online preview. -->
+	
+  <div class="container" id="container">
+  	<!-- preview tips. -->
+ 	
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">使用socket.io搭建简单的聊天室</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-04</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p><code>socket.io</code>是一个基于<code>nodejs</code>第三方<code>socket</code>库，同时配合客户端的服务器端就能达到实时应用的要求。<code>socket.io</code>的客户端版本会智能检测浏览器是否支持<code>socket</code>，在不支持<code>socket</code>的浏览器上将视情况使用<code>long-polling</code>替代方案。</p>
+<p>在传统的webim应用上，使用长轮询是主流方案，不过<code>socket</code>的出现拯救了这一情况，而且现在的浏览器市场上chrome、firefox以及一系列基于<code>webkit</code>的浏览器占有的市场越来越大，而且<code>socket</code>还能智能检测，所以理论上是可以放心使用的。</p>
+<h3 id="安装socket-io"><a href="#安装socket-io" class="headerlink" title="安装socket.io"></a>安装socket.io</h3><p>在<code>nodejs</code>环境下，安装<code>socket.io</code>十分简单，直接使用<code>npm install socket.io</code>安装，客户端版本在<code>node_modules/socket.io/lib/socket.js</code>目录下，安装成功之后新建<code>chat.html</code>主页面。</p>
+<h3 id="使用socket-io"><a href="#使用socket-io" class="headerlink" title="使用socket.io"></a>使用socket.io</h3><p><code>socket.io</code>实现了一套事件监听机制，通过相互监听事件来达到客户端和服务器端互相通讯的目的。使用<code>socket.emit</code>注册一个事件，使用<code>socket.on</code>监听事件，就是这么简单。</p>
+<p>首先我们将<code>node_modules/socket.io/lib/socket.js</code>文件拷贝出来，在前端引入socket.js文件。</p>
+<p>我们要实现一个聊天室，需要注册至少三个事件<code>connect/disconnect/message</code>。<code>connect</code>监听新用户的加入，<code>disconnect</code>监听用户的离开，<code>message</code>监听用户所发的信息。</p>
+<p>我们先从服务器端的代码开始。</p>
+<h3 id="服务器端的事件注册及监听"><a href="#服务器端的事件注册及监听" class="headerlink" title="服务器端的事件注册及监听"></a>服务器端的事件注册及监听</h3><figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'use strict'</span>;</span><br><span class="line">var	userList = [],  <span class="comment">//用户列表</span></span><br><span class="line">	io = require(<span class="string">'socket.io);</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">module.exports = function() &#123;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	//监听新用户的加入</span></span><br><span class="line"><span class="string">	io.on('</span>connection', <span class="function"><span class="keyword">function</span><span class="params">(socket)</span> &#123;</span></span><br><span class="line"></span><br><span class="line">		console.<span class="built_in">log</span>(<span class="string">'connected success.'</span>); <span class="comment">//socket.handshake</span></span><br><span class="line"></span><br><span class="line">		socket.on(<span class="string">'login'</span>, <span class="function"><span class="keyword">function</span><span class="params">(d)</span> &#123;</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(d.login) &#123;</span><br><span class="line"></span><br><span class="line">				socket.name = d.username;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span>(userList.<span class="built_in">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">					let isExist = userList.every(item =&gt; item.name !== socket.name);</span><br><span class="line"></span><br><span class="line">					<span class="comment">//新用户不存在时才添加进用户列表</span></span><br><span class="line">					isExist &amp;&amp; (userList[userList.length] = &#123;name: d.username&#125;);</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="comment">//第一个用户，默认添加</span></span><br><span class="line">					userList[userList.length] = &#123;name: d.username&#125;;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// console.log(d.username + '加入了聊天');				</span></span><br><span class="line"></span><br><span class="line">				<span class="comment">//全局广播新用户信息</span></span><br><span class="line">				io.emit(<span class="string">'onlineUser'</span>, &#123;</span><br><span class="line">					count: userList.<span class="built_in">length</span>,</span><br><span class="line">					currentUser: d.username</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//监听用户离开聊天室</span></span><br><span class="line">		socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> &#123;</span></span><br><span class="line">			</span><br><span class="line">			<span class="comment">//循环用户列表，如果退出用户的名称在用户列表内，则视为用户离开</span></span><br><span class="line">			userList.forEach(<span class="function"><span class="keyword">function</span><span class="params">(item, index)</span> &#123;</span></span><br><span class="line">				<span class="keyword">if</span>(item.name === socket.name) &#123;</span><br><span class="line">					userList.splice(index, <span class="number">1</span>);  <span class="comment">//删除离开的用户</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//更新在线用户列表并向客户端传递离开用户的信息，包括现在的用户数、当前离开用户的名称</span></span><br><span class="line">			io.emit(<span class="string">'onlineUser'</span>, &#123;</span><br><span class="line">				isout: true,</span><br><span class="line">				count: userList.<span class="built_in">length</span>,</span><br><span class="line">				currentUser: socket.name</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line"> 		</span><br><span class="line"> 		<span class="comment">//监听客户端用户的输入</span></span><br><span class="line">		socket.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span><span class="params">(d)</span> &#123;</span></span><br><span class="line">			<span class="comment">//注册message事件将用户输入返回给客户端</span></span><br><span class="line">			io.emit(<span class="string">'message'</span>, d);</span><br><span class="line">		&#125;);</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面就是服务器端注册事件的全部代码，可以看到代码量很少，<code>socket.io</code>为我们封装了很上层的api，用起来很爽。</p>
+<h3 id="客户端的事件注册及监听"><a href="#客户端的事件注册及监听" class="headerlink" title="客户端的事件注册及监听"></a>客户端的事件注册及监听</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 我们已经在前面引入了socket.js，这里可以直接使用 */</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> socket = io(),</span><br><span class="line">	chatsBox = <span class="built_in">document</span>.querySelector(<span class="string">'.chats'</span>),</span><br><span class="line">	username = <span class="built_in">document</span>.querySelector(<span class="string">'#user &gt; span:first-child'</span>).dataset.username;</span><br><span class="line"></span><br><span class="line"><span class="comment">//注册用户登录</span></span><br><span class="line">socket.emit(<span class="string">'login'</span>, &#123;</span><br><span class="line">	login: <span class="literal">true</span>,</span><br><span class="line">	username: username</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听当前在线用户数</span></span><br><span class="line">socket.on(<span class="string">'onlineUser'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> onlineBox = <span class="built_in">document</span>.querySelector(<span class="string">'span.online'</span>),</span><br><span class="line">		userTip = <span class="function"><span class="keyword">function</span>(<span class="params">inner</span>) </span>&#123;</span><br><span class="line">			<span class="keyword">var</span> addBox = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>);</span><br><span class="line">			addBox.className = <span class="string">'add'</span>;</span><br><span class="line">			<span class="keyword">if</span>(d.currentUser === <span class="string">'超级管理员'</span>) &#123;</span><br><span class="line">				addBox.className += <span class="string">' admin'</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			addBox.innerHTML = d.currentUser + inner;</span><br><span class="line">			chatsBox.appendChild(addBox);</span><br><span class="line">			addBox = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">			chatsBox.scrollTop = chatsBox.scrollHeight - chatsBox.clientHeight;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">	onlineBox.innerHTML = <span class="string">'当前在线人数：'</span> + d.count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(d.currentUser &amp;&amp; !d.isout) &#123;</span><br><span class="line">		userTip(<span class="string">' 加入了聊天！'</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(d.currentUser &amp;&amp; d.isout) &#123;</span><br><span class="line">		userTip(<span class="string">' 退出了聊天！'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//监听用户发送信息</span></span><br><span class="line"><span class="keyword">var</span> fmArticle = <span class="built_in">document</span>.article,</span><br><span class="line">	subChat = fmArticle.sub,</span><br><span class="line">	chat = fmArticle.chat;</span><br><span class="line">	</span><br><span class="line"><span class="comment">//不够10补零</span></span><br><span class="line"><span class="keyword">var</span> zeroize = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num &lt; <span class="number">10</span> ? <span class="string">'0'</span> + num : num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//send message</span></span><br><span class="line"><span class="keyword">var</span> send = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>;</span><br><span class="line">	<span class="keyword">if</span>(chat.value === <span class="string">''</span>) &#123;</span><br><span class="line">		alert(<span class="string">'不能发送空!'</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	socket.emit(<span class="string">'message'</span>, &#123;</span><br><span class="line">		chat: chat.value,</span><br><span class="line">		username: username,</span><br><span class="line">		time: date.getFullYear() + <span class="string">'-'</span> + zeroize(date.getMonth() + <span class="number">1</span>) + <span class="string">'-'</span> + zeroize(date.getDate()) + <span class="string">' '</span> + zeroize(date.getHours()) + <span class="string">':'</span> + zeroize(date.getMinutes()) + <span class="string">':'</span> + zeroize(date.getSeconds())</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	chat.value = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//click send message</span></span><br><span class="line">subChat.addEventListener(<span class="string">'click'</span>, send, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">//enter send message</span></span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">	e.keyCode === <span class="number">13</span> &amp;&amp; send();</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">fmArticle.addEventListener(<span class="string">'submit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">	e.preventDefault ? e.preventDefault() : e.returnValue = <span class="literal">false</span>;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">socket.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> oneChat = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>),</span><br><span class="line">		name = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>),</span><br><span class="line">		message = <span class="built_in">document</span>.createElement(<span class="string">'article'</span>),</span><br><span class="line">		content = <span class="built_in">document</span>.createElement(<span class="string">'p'</span>),</span><br><span class="line">		time = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>);</span><br><span class="line"></span><br><span class="line">	oneChat.className = <span class="string">'one-chat cf '</span>+ (d.username === username &amp;&amp; <span class="string">'one-chat-curr'</span>);</span><br><span class="line">	name.className = <span class="string">'name'</span>;</span><br><span class="line">	message.className = <span class="string">'message'</span>;</span><br><span class="line">	time.className = <span class="string">'time'</span>;</span><br><span class="line"></span><br><span class="line">	name.innerHTML = d.username;</span><br><span class="line">	content.innerHTML = d.chat;</span><br><span class="line">	time.innerHTML = d.time;</span><br><span class="line"></span><br><span class="line">	message.appendChild(content);</span><br><span class="line">	message.appendChild(time);</span><br><span class="line"></span><br><span class="line">	oneChat.appendChild(name);</span><br><span class="line">	oneChat.appendChild(message);</span><br><span class="line"></span><br><span class="line">	chatsBox.appendChild(oneChat);</span><br><span class="line"></span><br><span class="line">	chatsBox.scrollTop = chatsBox.scrollHeight - chatsBox.clientHeight;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实客户端的代码是很简单的，监听客户端相应的事件，然后改写页面中元素的内容来达到实时的效果。整个过程就这么简单，最后来一张效果图：</p>
+<p><img src="/img/chat.png" alt="image"> </p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/20151020/chrome下的vimium插件使用/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/20150927/又是一年中秋节/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

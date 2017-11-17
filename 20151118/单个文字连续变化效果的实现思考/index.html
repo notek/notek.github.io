@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>单个文字连续变效果的实现思考 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="这不是一篇正式文章，只是一些测试结果。
+有时候会看到一些文字连续变化的效果，感觉很好玩，就像这样：
+
+赶忙打开调试器查看，看到的却是这样：
+
+蹩脚的实现纳闷的过程就此开始，一个元素包裹的一行文字怎么做到每一个文字连续变化的？
+谷歌上一顿搜，还真看到不少有用的信息来实现文字效果，有借助after/be">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="单个文字连续变效果的实现思考"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	<!-- online preview. -->
+	
+  <div class="container" id="container">
+  	<!-- preview tips. -->
+ 	
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">单个文字连续变效果的实现思考</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-18</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p><strong>这不是一篇正式文章，只是一些测试结果。</strong></p>
+<p>有时候会看到一些文字连续变化的效果，感觉很好玩，就像这样：</p>
+<p><img src="/img/macig-word.gif" alt="image"></p>
+<p>赶忙打开调试器查看，看到的却是这样：</p>
+<p><img src="/img/magic-word-ele.png" alt="image"></p>
+<h3 id="蹩脚的实现"><a href="#蹩脚的实现" class="headerlink" title="蹩脚的实现"></a>蹩脚的实现</h3><p>纳闷的过程就此开始，一个元素包裹的一行文字怎么做到每一个文字连续变化的？</p>
+<p>谷歌上一顿搜，还真看到不少有用的信息来实现文字效果，有借助<code>after/before</code>等伪元素实现文字效果的，也有借助<code>text-shadow</code>属性实现文字效果的，效果很优美，但是都不是连续变化的文字效果。</p>
+<p>于是又自己推敲，首先想到的是使用文本节点来实现，但是文本节点不支持设置样式。</p>
+<p>然后想到了使用<code>javascript</code>动态创建文本元素(一个字一个元素)包裹文字，再分别设置一些行为，完了之后在把所有生成的文本元素替换成纯文本。个人感觉这种方式是最符合实际场景的，于是自己动手写了一些简单的测试：</p>
+<pre><code>//html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;dom practice&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            margin: 0;
+        }
+        .words-box {
+            width: 60%;
+            margin: 10rem auto 0;
+        }
+        .words-box span {
+            color: #30C9F9;
+            font-size: 3rem;
+            transition: all .5s;
+            display: inline-block;
+            transform-origin: 0 0;
+            text-shadow: 1px 1px 1px #999;
+        }
+    &lt;/style&gt;
+    &lt;script&gt;
+        window.onload = function() {
+
+            var magicWord = function(str) {
+
+                var wordBoxes,
+                    words = str.split(&apos;&apos;),
+                    frg = document.createDocumentFragment(),    
+                    wordBox = document.querySelector(&apos;.words&apos;);
+
+                //create word box.
+                for(var i=0,len=words.length; i&lt;len; i++) {
+                    var word = document.createElement(&apos;span&apos;);
+                    word.innerHTML = words[i];
+                    frg.appendChild(word);
+                }
+                 wordBox.appendChild(frg);
+                 frg = null;
+
+                wordBoxes = wordBox.querySelectorAll(&apos;span&apos;);
+                Array.from(wordBoxes).forEach(function(item, index) {
+                    //利用闭包做层次操作
+                    !function() {
+                        index += 1;
+                        setTimeout(function() {
+                            item.style.transform = &apos;scaleY(1.5) translate3d(-30px, -50px, 0)&apos;;
+
+                            item.addEventListener(&apos;webkitTransitionEnd&apos;, function() {
+                                item.style.transform = &apos;scaleY(1) translate3d(0, 0, 0)&apos;;
+                                //如果到了最后一个文字，在变换完成之后替换纯文本
+                                if(index === wordBoxes.length - 1) {
+                                    item.addEventListener(&apos;webkitTransitionEnd&apos;, function() {
+                                        wordBox.innerHTML = &apos;&lt;span&gt;&apos;+ str +&apos;&lt;/span&gt;&apos;;
+                                    }, false);
+                                }
+                            }, false);
+                        }, index * 100);
+                    }(index);
+                });    
+
+            };
+
+            magicWord(&apos;跳动的脉搏，年轻的生命。&apos;);
+
+        };
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;words-box&quot;&gt;
+        &lt;div class=&quot;words&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>在<code>chrome</code>里面跑，结果就是文章开头的那张git图片的效果。有那么点意思了。</p>
+<p>这是我能想到最好的一种实现方式，基于这种实现，可以修改动画环节或者修改<code>css</code>变幻的细节来达成不同的效果。</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/20160405/react开发环境搭建之 -- gulp篇/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/20151116/nodejs-html5实现文件拖拽上传/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

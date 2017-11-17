@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>jasmine简单介绍及用法 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="jasmine是什么？jasmine是一个基于BDD的javascript开发测试框架。
+jasmine是一个独立运行的测试框架，不依赖其他的框架，可用于nodejs端和纯前端环境中。
+下载jasmine本文所有的例子均在纯前端的测试环境中，所以在开始之前请到这里下载jasmine。
+本文使用的是j">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="jasmine简单介绍及用法"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	<!-- online preview. -->
+	
+  <div class="container" id="container">
+  	<!-- preview tips. -->
+ 	
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">jasmine简单介绍及用法</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-15</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h3 id="jasmine是什么？"><a href="#jasmine是什么？" class="headerlink" title="jasmine是什么？"></a>jasmine是什么？</h3><p><code>jasmine</code>是一个基于<code>BDD</code>的<code>javascript</code>开发测试框架。</p>
+<p><code>jasmine</code>是一个独立运行的测试框架，不依赖其他的框架，可用于<code>nodejs</code>端和纯前端环境中。</p>
+<h3 id="下载jasmine"><a href="#下载jasmine" class="headerlink" title="下载jasmine"></a>下载jasmine</h3><p>本文所有的例子均在纯前端的测试环境中，所以在开始之前请到<a href="https://github.com/jasmine/jasmine/releases" target="_blank" rel="noopener">这里</a>下载<code>jasmine</code>。</p>
+<p>本文使用的是<code>jasmine-standalone-2.3.4.zip</code>。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h5 id="Suite"><a href="#Suite" class="headerlink" title="Suite"></a>Suite</h5><p><code>Suite</code>是一个测试组，可以简单理解为一组测试。测试组可以有多个，也可以相互嵌套。</p>
+<h5 id="Spec"><a href="#Spec" class="headerlink" title="Spec"></a>Spec</h5><p><code>Spec</code>是一个单个测试，定义于某个测试组中。可以同时存在多个。</p>
+<h5 id="Expectation"><a href="#Expectation" class="headerlink" title="Expectation"></a>Expectation</h5><p><code>Expectation</code>是一个断言，代表着程序运行期待的结果。</p>
+<h3 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h3><p>上面简单说了3个基本概念，下面介绍几个基本也是最重要的方法。</p>
+<h5 id="describe"><a href="#describe" class="headerlink" title="describe"></a>describe</h5><p><code>describe</code>用来定义一个测试组，接受两个参数：</p>
+<pre><code>describe(string, fn)
+
+string: 定义一组测试的描述
+fn: 定义一组测试的行为
+
+/*** usage example ***/
+describe(&apos;the test group&apos;, function() {
+    //some code.
+});    
+</code></pre><h5 id="it"><a href="#it" class="headerlink" title="it"></a>it</h5><p><code>it</code>方法用来定义单个测试，也接受两个参数：</p>
+<pre><code>it(string, fn)
+
+string: 定义一个测试的描述
+fn: 定义一个测试的行为
+
+/*** usage example ***/
+it(&apos;the test&apos;, function() {
+    //some code.
+});    
+</code></pre><h5 id="expect"><a href="#expect" class="headerlink" title="expect"></a>expect</h5><p><code>expect</code>方法用来定义一个断言，接受一个参数：</p>
+<pre><code>expect(actual)
+
+actual: 代表一个实际的值
+
+/*** usage example ***/
+expect(100)...
+</code></pre><h5 id="matcher"><a href="#matcher" class="headerlink" title="matcher"></a>matcher</h5><p><code>matcher</code>不是一个具体的方法，而是代表一些期望行为的判断。必须配合<code>expect</code>方法使用。主要的<code>matcher</code>有以下几种：</p>
+<ul>
+<li><code>toBe</code>: 使用 === 判断实际值和期望值</li>
+<li><code>toEqual</code>: 判断两个值/对象是否相等</li>
+<li><code>toBeDefined</code>: 判断一个值不是undefined</li>
+<li><code>toBeUndefined</code>: 判断一个值是undefined</li>
+<li><code>toBeMatch</code>: 使用正则匹配判断实际值是否包含正则表达式定义的查询</li>
+<li><code>toBeNull</code>: 判断一个值是不是null</li>
+<li><code>toBeTruthy</code>: 判断一个值是否为true,会按照javascript转换规则进行比较转换</li>
+<li><code>toBeFalsy</code>: 判断一个值是否为false,会按照javascript转换规则进行比较转换</li>
+<li><code>toContain</code>: 判断数组是否包含某个值</li>
+<li><code>tobeLessThan</code>: 对实际值和期望值进行小于判断</li>
+<li><code>toBeGreaterThan</code>: 对实际值和期望值进行大于判断</li>
+<li><code>toThrow</code>: 判断一个函数是否抛出了异常</li>
+<li><code>toBeCloseTo</code>: 判断两个数是否足够接近</li>
+</ul>
+<h3 id="jasmine项目结构简洁"><a href="#jasmine项目结构简洁" class="headerlink" title="jasmine项目结构简洁"></a>jasmine项目结构简洁</h3><p>现在打开之前下载的<code>jasmine</code>，会看到以下项目结构：</p>
+<pre><code>jasmine
+   |-- lib
+   |-- MIT.LISENCE
+   |-- spec
+   |-- SpecRunner.html
+   |-- src
+</code></pre><ul>
+<li><code>lib</code>：存放的是所有的基础服务文件</li>
+<li><code>MIT.LISENCE</code>：协议声明</li>
+<li><code>spec</code>：测试文件</li>
+<li><code>SpecRunner.html</code>：测试结果输出页面</li>
+<li><code>src</code>：被测试的文件</li>
+</ul>
+<h3 id="基本的例子"><a href="#基本的例子" class="headerlink" title="基本的例子"></a>基本的例子</h3><p>现在来写一个简单的比较基本类型值的测试，在<code>spec</code>目录下新建文件<code>basicCompareSpec.js</code>，加入以下内容：</p>
+<pre><code>describe(&apos;比较基本类型值是否相等&apos;, function() {
+    var a = 10,
+        b = 11;
+
+    it(&apos;看看a是不是等于b&apos;, function() {
+        expect(a).toEqual(b);  //还记得toEqual这个matcher吗？它是用来比较两个值是否相等的
+    });
+});
+</code></pre><p>然后在<code>SpecRunner.html</code>文件中引用该文件：</p>
+<pre><code>&lt;!-- include spec files here... --&gt;
+&lt;script src=&quot;spec/SpecHelper.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;spec/PlayerSpec.js&quot;&gt;&lt;/script&gt;
+&lt;!-- 在这里加入新建的basicCompare文件 --&gt;
+&lt;script src=&quot;spec/basicCompareSpec.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>最后运行<code>SpecRunner.html</code>文件，就能看到结果提示：</p>
+<p><img src="/img/jasmine-1.png" alt="image"></p>
+<p>测试不通过，并且提示了具体问题在哪。这时候在把<code>b</code>的值改为10就能通过测试了。</p>
+<h3 id="稍微复杂一点的例子"><a href="#稍微复杂一点的例子" class="headerlink" title="稍微复杂一点的例子"></a>稍微复杂一点的例子</h3><p>现在来做一个比较实际的例子，可能会比上面的例子稍微复杂那么一丢丢，限制用户必须输入且必须是数字。</p>
+<p>继续在新建一个叫做<code>mustBeNumberSpec.js</code>的文件：</p>
+<pre><code>describe(&apos;must be a number&apos;. function() {
+
+    //假设userInput为用户输入
+    var userInput = function() {
+        return 15;
+    };
+
+    it(&apos;测试用户是否输入且是不是数字&apos;, function() {
+        //先检查是否输入
+        expect(userInput()).toDndefined();
+        //再检查是不是数字
+        expect(userInput()).toMatch(/^\d*$/g);
+    });
+
+});
+</code></pre><p>这个例子其实也很简单，在实际应用中，可能更多的方面会要求测试异步代码，在<code>jasmine</code>中测试异步代码其实也很简单，但是会涉及到两个前面并没有说过的方法。</p>
+<h5 id="beforeEach和done方法"><a href="#beforeEach和done方法" class="headerlink" title="beforeEach和done方法"></a>beforeEach和done方法</h5><p><code>beforeEach</code>是用来定义在一个测试组中所有<code>Specs</code>开始之前需要初始化的东西。</p>
+<p><code>done</code>是一个可选方法，在<code>beforeEach</code>/<code>it</code>等方法中作为回调函数的参数存在，在测试异步例子的时候这很重要。如果忘记了调用<code>done</code>方法，那么<code>spec</code>会直接等待5s，然后就会因为超时而直接退出，我么将得不到任何有用的信息。</p>
+<p>顺便提一句，在<code>jasmine</code>中设置超时时间是通过<code>jasmine.DEFAULT_TIMEOUT_INTERVAL</code>设置，默认就是5s。</p>
+<p>ok，现在我们定义一个异步方法，然后测试它。</p>
+<p>新建<code>asyncSpec.js</code>文件：</p>
+<pre><code>describe(&apos;测试异步支持&apos;, function() {
+
+    var val;
+
+    //定义异步方法
+    beforeEach(function(done) {
+        setTimeout(function() {
+            val = 100;
+            //调用done
+            done();
+        }, 1000);
+    });
+
+    //测试异步方法
+    it(&apos;检测通过异步方法设置的val变量的值是否是10&apos;, function(done) {
+        expect(val).toEqual(10);
+        //在it(spec)里面也必须调用done
+        done();
+    });
+
+});
+</code></pre><p>然后现在执行<code>SpecRunner.html</code>文件，我们可以看到，页面在等待了1s之后输出了测试通过的结果。</p>
+<h3 id="不习惯写结束"><a href="#不习惯写结束" class="headerlink" title="不习惯写结束"></a>不习惯写结束</h3><p><code>jasmine</code>是个很好用的测试框架，这篇文章讲的很浅，比较高阶的应用还有像<code>Spy</code>/<code>Timer</code>等，但是这篇文章只讲基础，所以这些相对高阶的应用会在后面的文章中展开。</p>
+<p>那啥，结束了吧。</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/20151116/nodejs-html5实现文件拖拽上传/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/20151114/mac下sublime-text3一些使用技巧/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

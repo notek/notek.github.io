@@ -1,0 +1,475 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>nidejs+html5实现文件拖拽上传 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="html5拖拽上传api是个很屌的东西啊，很有bige的样子。
+最近又在复习nodejs，索性就用他俩结合来做一个简单的例子。
+
+
+nodejs不依赖任何第三方中间件。
+请在高级浏览器下测试。
+不支持多文件拖拽上传，请自行修改。
+
+
+准备工作我们需要先创建一个项目uplaod-file，然后在项目内">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="nidejs+html5实现文件拖拽上传"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	<!-- online preview. -->
+	
+  <div class="container" id="container">
+  	<!-- preview tips. -->
+ 	
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">nidejs+html5实现文件拖拽上传</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-16</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p><code>html5</code>拖拽上传api是个很屌的东西啊，很有bige的样子。</p>
+<p>最近又在复习<code>nodejs</code>，索性就用他俩结合来做一个简单的例子。</p>
+<blockquote>
+<ul>
+<li>nodejs不依赖任何第三方中间件。</li>
+<li>请在高级浏览器下测试。</li>
+<li>不支持多文件拖拽上传，请自行修改。</li>
+</ul>
+</blockquote>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>我们需要先创建一个项目<code>uplaod-file</code>，然后在项目内在创建文件<code>start.js</code>和<code>upload-file.html</code>。</p>
+<p>由于我写的很简单，而且<code>nodejs</code>不依赖任何第三方中间件，这就意味着需要先用<code>nodejs</code>实现一个简陋的文件服务器。</p>
+<h5 id="一个简陋的文件服务器"><a href="#一个简陋的文件服务器" class="headerlink" title="一个简陋的文件服务器"></a>一个简陋的文件服务器</h5><p>这部分不在文章范围内哈，所以就简单的贴上代码，在<code>start.js</code>中写入代码：</p>
+<pre><code>var fs = require(&apos;fs&apos;),
+path = require(&apos;path&apos;),
+http = require(&apos;http&apos;),
+url = require(&apos;url&apos;);
+
+var mime = {
+    &quot;.css&quot;: &quot;text/css&quot;,
+    &quot;.gif&quot;: &quot;image/gif&quot;,
+    &quot;.html&quot;: &quot;text/html&quot;,
+    &quot;.ico&quot;: &quot;image/x-icon&quot;,
+    &quot;.jpeg&quot;: &quot;image/jpeg&quot;,
+    &quot;.jpg&quot;: &quot;image/jpeg&quot;,
+    &quot;.js&quot;: &quot;text/javascript&quot;,
+    &quot;.json&quot;: &quot;application/json&quot;,
+    &quot;.pdf&quot;: &quot;application/pdf&quot;,
+    &quot;.png&quot;: &quot;image/png&quot;,
+    &quot;.svg&quot;: &quot;image/svg+xml&quot;,
+    &quot;.swf&quot;: &quot;application/x-shockwave-flash&quot;,
+    &quot;.tiff&quot;: &quot;image/tiff&quot;,
+    &quot;.wav&quot;: &quot;audio/x-wav&quot;,
+    &quot;.wma&quot;: &quot;audio/x-ms-wma&quot;,
+    &quot;.wmv&quot;: &quot;video/x-ms-wmv&quot;,
+    &quot;.xml&quot;: &quot;text/xml&quot;
+};
+
+http.createServer(function(request, response) {
+
+    var pathname = url.parse(request.url).pathname,
+        dir = __dirname + pathname, postData = [], size = 0;
+
+    //default display directory.
+    if(pathname === &apos;/&apos;) {
+        fs.readdir(dir, function(err, files) {
+            if(err) throw new Error(&apos;error reading!&apos;);
+
+            var dirArr = [];
+            files.forEach(function(item) {
+
+                //生成文件访问链接
+                dirArr.push(&apos;&lt;a href=&quot;localhost:8000/&apos;+ item +&apos;&quot; style=&quot;display:block;&quot; target=&quot;_blank&quot;&gt;&apos; + item + &apos;&lt;/a&gt;&apos;);
+
+            });
+            response.write(dirArr.join(&apos;\n\n&apos;));
+            response.end();
+
+        });
+        return;
+    }
+
+    //禁止访问的路径
+    switch(pathname) {
+
+        case &apos;/start.js&apos;:
+            response.end(&apos;Permsission denied！&apos;);
+            return;
+            break;
+
+    }
+
+    //read files.
+    fs.exists(dir, function(exists) {
+        if(exists) {
+
+            //使用二进制读取文件，避免访问图片等资源直接下载
+            fs.readFile(dir, &apos;binary&apos;, function(err, data) {
+
+                if(err) {
+                    response.writeHead(500, {&apos;Content-Type&apos;: &apos;text/plain&apos;});
+                    response.end(err);
+                }
+
+                var suffix = path.extname(pathname);
+                //mime类型，默认为纯文本
+                var mimeType = mime[suffix] || &apos;text/plain&apos;;
+                //设置过期时间头
+                if(/css|js|html|jpg|png/ig.test(suffix)) {
+                    response.setHeader(&apos;Expires&apos;, new Date(new Date().getTime() + 60 * 60 * 24 * 30 * 1000));
+                    response.setHeader(&apos;Cache-Control&apos;, &apos;max-age=&apos; + 60 * 60 * 24 * 30);
+                }
+
+                //检查最后修改时间请求
+                var stats = fs.statSync(dir);
+                var lastModified = stats.mtime.toUTCString();
+                response.setHeader(&quot;Last-Modified&quot;, lastModified);
+                if(request.headers[&apos;if-modified-since&apos;] &amp;&amp; lastModified == request.headers[&apos;if-modified-since&apos;]) {
+
+                    response.writeHead(304, &quot;Not Modified&quot;);
+                    response.end();
+
+                }else {
+
+                    response.writeHead(200, {&apos;Content-Type&apos;: mimeType});
+                    response.write(data, &apos;binary&apos;);
+                    response.end();
+
+                }
+
+            });
+        }else {
+            response.end(&apos;&quot;&apos; + pathname + &apos;&quot;:404 not found.&apos;);
+        }
+
+    });
+
+}).listen(8000);
+console.log(&apos;srever starting success! port on 8000...&apos;);
+</code></pre><p>OK，这时候在命令行中启动<code>node</code>服务，执行<code>start.js</code>，访问<code>licalhost:8000</code>就能看到以下界面(.DS_Store文件请忽略，mac下自动生成的)：</p>
+<p><img src="/img/upload-file-1.png" alt="image"></p>
+<h5 id="文件上传页面"><a href="#文件上传页面" class="headerlink" title="文件上传页面"></a>文件上传页面</h5><p>现在，文件服务器已经能开始工作了，但是还需要一个文件上传页面<code>upload-file.html</code>。</p>
+<p>我们需要两个元素，一个是拖拽的触发区域，一个用来显示上传信息，在加上一些<code>css</code>代码，于是，我们的<code>upload-file.html</code>是下面这个样子：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;我是拖拽上传，你咬我啊？&lt;/title&gt;
+        &lt;style&gt;
+            body {
+                margin:0;
+            }    
+            #drop {
+                width:50%;
+                height:300px;
+                color:#C9EEFF;
+                font-size:24px;
+                line-height:300px;
+                text-align: center;
+                margin:100px auto 0;
+                border:2px dotted #ccc;
+                text-shadow:1px 1px 1px #ccc;
+            }
+
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;section id=&quot;drop&quot;&gt;拖拽文件到这里&lt;/section&gt;
+        &lt;p id=&quot;show&quot;&gt;&lt;/p&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre><p>来张效果图证明不丑-_-：</p>
+<p><img src="/img/upload-file-2.png" alt="image"></p>
+<p>是不是感觉棒棒哒？</p>
+<h3 id="文件拖拽事件"><a href="#文件拖拽事件" class="headerlink" title="文件拖拽事件"></a>文件拖拽事件</h3><p><code>html5</code>总共提供了6个事件用来处理文件拖拽的各个步骤，具体可以参考<a href="https://developer.mozilla.org/zh-CN/docs/DragDrop/Drag_and_Drop" target="_blank" rel="noopener">这里</a>。</p>
+<p>这里例子用到的事件只有两个：</p>
+<ul>
+<li><code>dragover</code>: 该事件在拖拽元素经过触发区域时触发。例子中主要是用来禁止默认的浏览器行为。如果不调禁止浏览器默认行为，浏览器会默认打开拖拽的文件。</li>
+<li><code>drop</code>: 该事件在触发区域上松开鼠标时触发。很好理解，就是拖拽完了之后松开鼠标。</li>
+</ul>
+<h3 id="上传接口"><a href="#上传接口" class="headerlink" title="上传接口"></a>上传接口</h3><p>除了上面提到的拖拽事件之外，我们还需要用到<code>FileList</code>接口和<code>FormData</code>接口。</p>
+<h5 id="FileList接口"><a href="#FileList接口" class="headerlink" title="FileList接口"></a>FileList接口</h5><p><code>FileList</code>接口用来传递被拖拽的文件的信息。使用<code>event.dataTransfer.files</code>访问。<code>event</code>作为<code>drop</code>事件的事件对象存在。</p>
+<h5 id="FormData接口"><a href="#FormData接口" class="headerlink" title="FormData接口"></a>FormData接口</h5><p><code>FormData</code>接口用来模拟表单对象提交数据。<code>FormData</code>作为一个构造函数存在，使用的时候直接<code>new</code>一个实例就行了。</p>
+<p>该实例有一个<code>append</code>方法用来像<code>FormData</code>追加字段：<code>form.append(&#39;name&#39;, &#39;notek&#39;)</code>。</p>
+<p>具体详情请参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/Using_FormData_Objects" target="_blank" rel="noopener">这里</a>。</p>
+<h3 id="前端部分文件上传流程"><a href="#前端部分文件上传流程" class="headerlink" title="前端部分文件上传流程"></a>前端部分文件上传流程</h3><p>我们给<code>document</code>对象绑定<code>dragover</code>和<code>drap</code>事件。</p>
+<p>当用户拖拽文件到了我们的触发区域时，这时候需要调用<code>dragover</code>事件来禁止浏览器默认行为：</p>
+<pre><code>document.addEventListener(&apos;dragover&apos;, function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}, false);
+</code></pre><p>而真正需要处理的所有逻辑，都将在<code>drap</code>事件中进行。</p>
+<p>想象一下，在用户拖拽的文件到了触发区域，并且松开鼠标之后，我们应该做些什么？</p>
+<p>通常要做的无外乎就是检测文件类型、大小等等。但是有一些特殊文件并没有具体的类型，我们需要把他们排除(最常见的例子就是用户拖拽了一个目录)。</p>
+<p>ok，上面说了一大堆哈，来点实际的代码：</p>
+<pre><code>document.addEventListener(&apos;drop&apos;, function(e) {
+
+    //禁止浏览器默认行为
+    e.stopPropagation();
+    e.preventDefault();
+
+    //获取文件信息
+    var files = e.dataTransfer.files;
+    //简单检测文件类型
+    if(!files[0].type) {
+        throw new TypeError(&apos;不支持的文件类型！&apos;);
+    }
+
+    //构造提交数据
+    var formData = new FormData();
+    formData.append(&apos;files[]&apos;, files[0]);
+
+    //ajax..  the XMLHttpRequest leave 2 api, use &apos;progress&apos; event get upload progress bar.
+    var http = new XMLHttpRequest();
+    http.open(&apos;post&apos;, &apos;/upload-file.html&apos;, true);
+    http.setRequestHeader(&apos;Content-type&apos;, &apos;application/x-www-form-urlencoded&apos;);
+    http.onreadystatechange = function() {
+
+        var res = null;
+        if(http.readyState === 4 &amp;&amp; http.status === 200) {
+
+            if(http.responseText) {
+                console.log(http.responseText);
+                res = JSON.parse(http.responseText);
+                if(res.uploadedCode === &apos;1&apos;) {
+                    alert(&apos;上传成功！&apos;);
+                    show.innerHTML += &apos;&lt;br&gt;文件地址：&apos; + res.uploadedUrl + &apos;&lt;br&gt;mime类型:&apos; + res.mime;
+                }
+
+            }
+
+        }
+
+    };
+    http.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+
+            var percent = &apos;上传进度&apos; + e.loaded + &apos;/&apos; + e.total;
+            show.innerHTML = percent;
+
+        }
+    };
+    http.send(formData);
+
+}, false);
+</code></pre><p>在这里我使用了最新的<code>XMLHttpRequest</code>版本，用来做进度条显示。</p>
+<p>到了这儿，其实前端部分已经算是完成了。有兴趣还可以利用<code>FileReader</code>做一个上传文件预览。</p>
+<p>现在，开始处理后台。</p>
+<h3 id="后台部分文件上传流程"><a href="#后台部分文件上传流程" class="headerlink" title="后台部分文件上传流程"></a>后台部分文件上传流程</h3><p>后台部分的处理，其实就是把得到的数据进行一些特殊处理，比如数据拆分，得到文件的各种信息如文件名、文件<code>mime</code>类型、实际的文件数据等等。然后将文件数据写入到一个特定的目录中，最后将这些信息按要求返回给前端就算ok。</p>
+<p>还是在<code>start.js</code>文件中来进行，将以下代码添加到<code>start.js</code>文件中创建<code>http</code>服务的方法(<code>http.createServer</code>)中：</p>
+<pre><code>//处理数据
+if(request.method === &apos;POST&apos;) {
+
+    //接收上传数据
+    request.addListener(&apos;data&apos;, function(chunk) {
+
+        postData.push(chunk);
+        size += chunk.length;
+
+    }).addListener(&apos;end&apos;, function() { //接收到所有数据进行处理
+
+        var pos1, pos2, posCollection = [],
+            fileResult = null, fileName = &apos;&apos;,
+            mime = &apos;&apos;, fileInfo = &apos;&apos;, fileContent = &apos;&apos;,
+            //转换为buffer对象
+            buffer = Buffer.concat(postData, size);
+
+        //获取buffer对象中\r和\n的ascii码的位置
+        for(var i=0;i&lt;buffer.length;i++){
+            var pos1 = buffer[i];
+            var pos2 = buffer[i+1];
+            if(pos1 == 13 &amp;&amp; pos2 == 10){
+                posCollection.push(i);
+            }
+        }
+
+        //筛选出图片数据
+        fileContent = buffer.slice(posCollection[3] + 2, posCollection[posCollection.length - 2]);
+        fileResult = buffer.toString(&apos;utf-8&apos;).split(&apos;\r\n&apos;);
+        fileResult = fileResult.filter(function(item) {
+            return item !== &apos;&apos;;
+        });
+
+        //筛选出文件信息
+        fileInfo = fileResult[1];
+        //筛选出文件mime类型
+        mime = fileResult[2];      
+
+        //筛选出文件名
+        fileInfo.replace(/filename=&quot;(.*)&quot;$/g, function() {
+            fileName = arguments[1];
+        });
+
+        //保存到当前目录的upload目录下，如果没有，则创建这个目录
+        if(!fs.existsSync(&apos;./upload&apos;)) {
+            fs.mkdirSync(&apos;./upload&apos;);
+        }
+        //将文件数据写入到upload目录下
+        fs.writeFileSync(&apos;upload/&apos; + fileName, fileContent);
+        //最后，返回一些信息用于前端显示给用户
+        response.write(&apos;{&quot;uploadedCode&quot;: &quot;1&quot;,&quot;uploadedUrl&quot;: &quot;./upload/&apos;+ fileName +&apos;&quot;,&quot;mime&quot;:&quot;&apos;+ mime +&apos;&quot;}&apos;);
+        response.end();
+
+    });
+
+    return;
+
+}
+</code></pre><p>ok，整个过程就是这样，现在访问<code>localhost:8000/upload-file.html</code>，最终效果呈现：</p>
+<p><img src="/img/upload-file-3.png" alt="image"></p>
+<p>点击确定，更新上传的文件信息：</p>
+<p><img src="/img/upload-file-4.png" alt="image"></p>
+<p>一个简单的文件拖拽上传就算是做完了。其实还是很简单的，主要是对一些api的理解。</p>
+<h3 id="the-end"><a href="#the-end" class="headerlink" title="the end"></a>the end</h3><p>我也在摸索，很多地方都不太明白，但我明白自学的那种痛苦，所以把自己一些学习的成果拿出来分享。</p>
+<p>每天多学一点，每天进步一点，加油。</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/20151118/单个文字连续变化效果的实现思考/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/20151115/jasmine简单介绍及用法/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
