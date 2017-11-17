@@ -35,6 +35,9 @@ body {
   background-position: 0 40px;
   text-rendering: geometricPrecision;
 }
+strong {
+  font-weight: 500;
+}
 
 .pagehome {
   height: 100%;
@@ -189,10 +192,6 @@ body {
   overflow-x: hidden;
 }
 
-.page p{
-  margin: 1.0em 0em;
-}
-
 .page .panel-collapse .panel-body {
   padding: 0;
   font-size: 16px;
@@ -200,9 +199,9 @@ body {
 }
 
 .page-custom p, .page-custom li {
-  color: #465f5c;
-  font-size: 20px;
-  line-height: 30px;
+  color: #555;
+  font-size: 16px;
+  line-height: 2;
 }
 .page-custom li {
   margin:5px 0;
@@ -243,7 +242,7 @@ li i {
    hyper links
    ========================================================================== */
 
-a{color:#666;transition:all .3s;}
+a{color:#999;transition:all .3s;}
 a:focus{color:#3193CC;}
 a:hover{color:#3193CC;text-decoration:none;}
 a:active{color:#3193CC;}
@@ -350,10 +349,10 @@ header h1{
 
 }
 
-.page-header h1 span.title{
-  color: #6BB9E0;
-  font-weight:normal;
-  font-family: "Helvetica Neue",Helvetica,Tahoma,"lantinghei sc","Hiragino Sans GB","microsoft yahei",sans-self;
+.page-header h1 {
+  font-size: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .page-header h1 span.date{
@@ -370,7 +369,7 @@ header h1{
   text-indent: 20px;
   line-height: 5rem;
   position: relative;
-  background-color: RGBA(255, 255, 255, .8);
+  background-color: RGBA(0, 0, 0, .8);
 }
 .post li a, .post li span {
   font-size: 2rem;
@@ -388,7 +387,7 @@ header h1{
 }
 .post li:hover span {
   opacity: 1;
-  color: transparent;
+  color: #fff;
   transition: all .5s;
   transform: rotate(0);
 }
@@ -400,8 +399,8 @@ h1{
 }
 
 h1,h2,h3,h4,h5,h6{
-  text-rendering:optimizelegibility;
-  font-weight:normal;
+  text-rendering:geometricPrecision;
+  font-weight: 300;
   font-family: 'Open Sans', "Helvetica Neue", "Helvetica","Microsoft YaHei", "WenQuanYi Micro Hei",Arial, sans-serif;
 }
 
@@ -414,21 +413,22 @@ h2{
 }
 
 h3 {
-  font-size: 3rem;
-  padding-bottom: 10px;
-  border-bottom: 1.5px solid #dcdce9;
-  color: #555;
+  padding: 15px;
+  background-color: #f2f2f2;
+  font-size: 2rem !important;
+  border-left: 5px solid #009688;
+  color: #607D8B;
 }
 
 h4 {
-  color: #B94A48;
+  margin: 35px 0 15px 0;
 }
 
 h2,section h1{font-size:2.2em}
 
 h3,section h2,section section h1{font-size:2em}
 
-h4,section h3,section section h2,section section section h1{font-size:1.6em}
+// h4,section h3,section section h2,section section section h1{font-size:1.6em}
 
 h5,section h4,section section h3{font-size:1.4em}
 

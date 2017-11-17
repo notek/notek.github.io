@@ -37,12 +37,6 @@ $(document).ready(function() {
 	//设置首页内容区高度
 	var height = $('html').height();
 	$('.index-page').css('height', height * .7);
-
-	//display preview.
-	$('.preview').click(function() {
-		$(this).toggleClass('ok');
-		$('.online-preview').toggleClass('show');
-	});
 });
 
 $(window).resize(function () {
