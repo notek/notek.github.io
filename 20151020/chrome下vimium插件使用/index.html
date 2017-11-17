@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>chrome下的vimium插件使用 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="vimium是一个chrome的操作增强插件，使用vim的操作方式来操作浏览器，主要使用键盘来操作，用熟悉了之后，能达到事半功倍的效果。
+下面一一介绍该插件的功能。
+快速切换标签页T可以用来切换标签页，按下之后会在当前页面的上层弹出一个所有标签页的集合，使用方向键加回车可以快速切换标签页。也可以在弹">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="chrome下的vimium插件使用"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	
+  <div class="container" id="container">
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">chrome下的vimium插件使用</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-20</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p><code>vimium</code>是一个<code>chrome</code>的操作增强插件，使用vim的操作方式来操作浏览器，主要使用键盘来操作，用熟悉了之后，能达到事半功倍的效果。</p>
+<p>下面一一介绍该插件的功能。</p>
+<h3 id="快速切换标签页"><a href="#快速切换标签页" class="headerlink" title="快速切换标签页"></a>快速切换标签页</h3><p><code>T</code>可以用来切换标签页，按下之后会在当前页面的上层弹出一个所有标签页的集合，使用方向键加回车可以快速切换标签页。也可以在弹出的输入框里面输入标签页的关键字进行过滤。</p>
+<p><img src="/img/quick-tabs-switch.png" alt="image"></p>
+<h3 id="快速打开历史纪录、书签"><a href="#快速打开历史纪录、书签" class="headerlink" title="快速打开历史纪录、书签"></a>快速打开历史纪录、书签</h3><p><code>o</code>可以在当前窗口弹出一个层，在里面可以输入历史纪录、书签的关键字进行过滤，然后回车会在当前页面打开选中的item，使用<code>O</code>可以在新标签页打开。</p>
+<p><img src="/img/history-bookmark.png" alt="image"></p>
+<h3 id="快速打开书签"><a href="#快速打开书签" class="headerlink" title="快速打开书签"></a>快速打开书签</h3><p><code>b</code>可以在当前窗口弹出一个层，在里面可以输入书签的关键字进行过滤，然后回车会在当前页面打开选中的item，使用<code>B</code>可以在新标签页打开。</p>
+<p><img src="/img/bookmark.png" alt="image"></p>
+<h3 id="快速复制当前页面的url以及打开"><a href="#快速复制当前页面的url以及打开" class="headerlink" title="快速复制当前页面的url以及打开"></a>快速复制当前页面的url以及打开</h3><p><code>yy</code>可以快速复制当前页面的url，在按下<code>p</code>可以在任一标签页或者新开标签页打开复制的url，同样的，按下<code>P</code>可以在新标签页打开。</p>
+<h3 id="快速打开页面上的url-重点推荐"><a href="#快速打开页面上的url-重点推荐" class="headerlink" title="快速打开页面上的url(重点推荐)"></a>快速打开页面上的url(重点推荐)</h3><p><code>f</code>可以列出页面上当前视口内所有可点击的链接，并且为链接生成一个字母序号，按下序号即可打开相应的链接，<code>F</code>在新标签页中打开。</p>
+<p><img src="/img/open-url.png" alt="image"></p>
+<p>这个功能对重度键盘用户来说，真的是很牛逼又很方便，操作速度快一些，在一般人还没看到什么的时候页面已经跳转了，给人一种好黑魔法(装逼)的感觉，哈哈。</p>
+<h3 id="匹配页面上的字符-推荐"><a href="#匹配页面上的字符-推荐" class="headerlink" title="匹配页面上的字符(推荐)"></a>匹配页面上的字符(推荐)</h3><p><code>chrome</code>自身提供了<code>ctrl+f</code>来进行页面的字符搜索，不过当焦点离开搜索框的时候如果要关闭必须要手动去点击那个小红叉才能关闭。</p>
+<p>而使用<code>vimium</code>提供的<code>/</code>搜索就没有这个问题，按下<code>/</code>之后会在页面右下角出现一个输入控件，输入完成之后按下回车即可进入匹配模式，并且输入控件也会消失，这个时候在按下<code>n</code>即可继续向下匹配，按下<code>N</code>匹配上一个匹配项。</p>
+<p><img src="/img/find-words.png" alt="image"></p>
+<h3 id="其他的一些常用基本操作"><a href="#其他的一些常用基本操作" class="headerlink" title="其他的一些常用基本操作"></a>其他的一些常用基本操作</h3><ul>
+<li><code>x</code>: 关闭当前标签页。</li>
+<li><code>X</code>: 恢复关闭的标签页。</li>
+<li><code>j</code>: 向下滚动页面。</li>
+<li><code>k</code>: 向上滚动页面。</li>
+<li><code>J</code>: 跳到上一个标签。</li>
+<li><code>K</code>: 跳到下一个标签。</li>
+<li><code>u</code>: 将页面向上滚动半个屏幕的位置。</li>
+<li><code>d</code>: 将页面向下滚动半个屏幕的位置。</li>
+<li><code>gg</code>: 跳到页面顶部。</li>
+<li><code>G</code>: 跳到页面底部。</li>
+<li><code>H</code>: 返回上一个历史纪录。</li>
+<li><code>L</code>: 跳到下一个历史纪录。</li>
+<li><code>g0</code>: 跳到第一个标签页。</li>
+<li><code>g$</code>: 跳到最后一个标签页。</li>
+<li><code>r</code>: 刷新当前页面。</li>
+<li><code>t</code>: 新增标签页。</li>
+<li><code>yt</code>: 在新标签页打开当前页面，可以看成是<code>yy</code> + <code>P</code>的简化方式。  </li>
+<li><code>gT</code>: <code>J</code>的另一种方式。</li>
+<li><code>gt</code>: <code>K</code>的另一种方式。</li>
+<li><code>gs</code>: 查看当前页面的源代码。</li>
+</ul>
+<h3 id="我也不懂的"><a href="#我也不懂的" class="headerlink" title="我也不懂的"></a>我也不懂的</h3><ul>
+<li><code>gf</code>: 不知道用来干嘛的，官方说的是在页面上向前一帧循环。</li>
+<li><code>gF</code>: 也不知道拿来干嘛的，官方说的是选择选项卡主要的或者顶部的框架。</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>假如上面的操作你还是有点不懂，还可以按<code>?</code>查看帮助。</p>
+<p><img src="/img/vimium-help.png" alt="image"></p>
+<p><code>vimium</code>是我使用<code>chrome</code>这么多年以来，我遇到过的最喜欢的插件之一，要鼠标干嘛？～扔掉</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/20151020/mac软件分享/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/20151004/使用socket-io搭建简单的聊天室/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

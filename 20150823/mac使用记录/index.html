@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="utf-8">
+  
+  <title>mac下小技巧 | notek&#39;s Blog</title>
+  <meta name="author" content="notek">
+  
+  <meta name="description" content="支持git命令补全mac下本来终端命令是支持按tab键自动补全的，但是有些第三方工具是不支持的，比如git。
+但是可以通过一些额外的工具让他支持，因为我在平时工作中使用git的频率比较高，每次都要把命令敲全了感觉很low，于是乎，按照下面的步骤做，mac终端也能支持git命令补全了。
+第一步
+首先安">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="mac下小技巧"/>
+  <meta property="og:site_name" content="notek&#39;s Blog"/>
+
+  
+  
+    <link href="/favicon.ico" rel="shortcut icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc" >
+	<!-- canvas for pointer. -->
+	
+
+	
+  <div class="container" id="container">
+
+	<div class="content">
+	  <div class="page-header">		
+  <h1><span class="title">mac下小技巧</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-23</span></h1>
+</div>		
+
+<div class="row page page-custom">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h3 id="支持git命令补全"><a href="#支持git命令补全" class="headerlink" title="支持git命令补全"></a>支持git命令补全</h3><p>mac下本来终端命令是支持按<code>tab</code>键自动补全的，但是有些第三方工具是不支持的，比如<code>git</code>。</p>
+<p>但是可以通过一些额外的工具让他支持，因为我在平时工作中使用<code>git</code>的频率比较高，每次都要把命令敲全了感觉很low，于是乎，按照下面的步骤做，mac终端也能支持<code>git</code>命令补全了。</p>
+<h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><ul>
+<li>首先安装mac神器<code>homebrew</code>（具体搜索下怎么安装，很简单）。</li>
+<li>然后使用<code>homebrew</code>安装一个工具：<code>bash-completion</code><ul>
+<li><code>brew install bash-completion</code></li>
+</ul>
+</li>
+<li>然后查看使用方法：<code>brew info bash-completion</code></li>
+<li>复制从<code>if</code>开头<code>fi</code>结尾的一段代码。</li>
+</ul>
+<h5 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h5><ul>
+<li>将这个文件copy下来：<code>https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</code>。</li>
+<li>在用户跟目录下新建文件<code>.git-completion.bash</code>，将刚才复制的文件写进去。</li>
+</ul>
+<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h5><ul>
+<li>修改<code>.bash_profile</code>，将<code>source ~/.git-completion.bash</code>加入进去。</li>
+<li>执行<code>source ~/.bash_profile</code>生效。</li>
+</ul>
+<h5 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h5><p><img src="/img/git-auto.png" alt="image"> </p>
+<h3 id="我的alias命令列表"><a href="#我的alias命令列表" class="headerlink" title="我的alias命令列表"></a>我的alias命令列表</h3><h5 id="系统alias命令"><a href="#系统alias命令" class="headerlink" title="系统alias命令"></a>系统alias命令</h5><figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span> <span class="title">c</span>=<span class="comment">'clear'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">c</span>.=<span class="comment">'cd ..'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">cf</span>=<span class="comment">'touch $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">cho</span>=<span class="comment">'open -a /Applications/Google\ Chrome.app $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">chosem</span>=<span class="comment">'sudo shutdown -h $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">e</span>~=<span class="comment">'vim ~/.bash_profile'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">grep</span>=<span class="comment">'grep --color'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">ip</span>=<span class="comment">'ifconfig | grep 192.*'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">ll</span>=<span class="comment">'ls -laF'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">mb</span>=<span class="comment">'sudo mongod -f /usr/local/etc/mongod.conf'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">md</span>=<span class="comment">'mkdir $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">om</span>=<span class="comment">'open -a /Applications/Mou.app/ $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">osl</span>=<span class="comment">'open -a /Applications/Sublime\ Text.app/ $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">rd</span>=<span class="comment">'rmdir $@'</span></span><br><span class="line"><span class="keyword">alias</span> <span class="title">reboot</span>=<span class="comment">'sudo reboot'</span></span><br><span class="line"><span class="keyword">alias</span> ~=<span class="comment">'source ~/.bash_profile'</span></span><br></pre></td></tr></table></figure>
+<h5 id="git的alias命令"><a href="#git的alias命令" class="headerlink" title="git的alias命令"></a>git的alias命令</h5><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alias</span>.cm=commit</span><br><span class="line"><span class="keyword">alias</span>.co=checkout</span><br><span class="line"><span class="keyword">alias</span>.<span class="keyword">br</span>=branch</span><br><span class="line"><span class="keyword">alias</span>.st=status</span><br><span class="line"><span class="keyword">alias</span>.mg=merge</span><br><span class="line"><span class="keyword">alias</span>.lg=log --color --graph --pretty=format:'<span class="symbol">%Cred</span><span class="symbol">%h</span><span class="symbol">%Creset</span> -<span class="symbol">%C</span>(yellow)<span class="symbol">%d</span><span class="symbol">%Creset</span> <span class="symbol">%s</span> <span class="symbol">%Cgreen</span>(<span class="symbol">%cr</span>) <span class="symbol">%C</span>(bold blue)&lt;<span class="symbol">%an</span>&gt;<span class="symbol">%Creset</span>' --abbrev-commit</span><br><span class="line"><span class="keyword">alias</span>.cfg=config</span><br><span class="line"><span class="keyword">alias</span>.ro=remote</span><br></pre></td></tr></table></figure>
+<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li>mysql数据库备份 -&gt; <code>mysqldump -u 用户名 -p 数据库名称 &gt; path/name.sql</code></li>
+<li>mysql导入数据 -&gt; <code>source 文件目录地址/example.sql</code></li>
+<li>服务器和本地的文件互换 -&gt; <code>scp uaername@domain:path local</code><ul>
+<li><code>username</code>：服务器用户名 </li>
+<li><code>domain</code>：服务器地址（或ip） </li>
+<li><code>path</code>：需要copy的文件在服务器上的目录地址 </li>
+<li><code>local</code>：需要存放到本地的位置</li>
+</ul>
+</li>
+<li>Permission define(public key)错误，由于<code>ssh</code>授权失效，执行<code>ssh-agent &amp;&amp; ssh-add ~/.ssh/id_rsa</code>重新授权即可解决。</li>
+<li>启动mysql服务 -&gt; <code>mysql.server start</code></li>
+</ul>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+	
+		<li class="prev"><a href="/20151004/使用socket-io搭建简单的聊天室/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+
+	<div class="container-narrow">
+		<footer> <p>
+  &copy; 2017 notek
+     
+</p> </footer>
+	</div> <!-- container-narrow -->
+  </div>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
