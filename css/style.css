@@ -162,6 +162,11 @@ strong {
   .not-search i {
     font-size: 350px !important;
   }
+
+  .post-list-item a,
+  .post-list-item span {
+    font-size: 14px !important;
+  }
 }
 .online-preview .preview-box a {
   color: #fff;
