@@ -155,6 +155,13 @@ strong {
   .online-preview .preview-box .item {
     width: 100%;
   } 
+
+  .not-search {
+    font-size: 40px !important;
+  }
+  .not-search i {
+    font-size: 350px !important;
+  }
 }
 .online-preview .preview-box a {
   color: #fff;
@@ -509,4 +516,15 @@ td {
 }
 #notek-search:focus {
   background-color: rgba(0 ,0, 0, .8);
+}
+
+.not-search {
+  color: #dcdcdc;
+  opacity: .85;
+  text-align: center;
+  font-size: 80px;
+  padding-bottom: 100px;
+}
+.not-search i {
+  font-size: 600px;
 }

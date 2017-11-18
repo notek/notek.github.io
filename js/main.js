@@ -64,7 +64,7 @@ $(document).ready(function() {
             // if(tmp.length === 0) tmp = titleBoxs;
 
             if(tmp.length <= 0) {
-                $('ul.post').html('<div style="color: #dcdcdc;opacity: .85;text-align: center;font-size: 80px;padding-bottom: 100px;"><i class="fa fa-frown-o" style="font-size: 600px;"></i><br>竟然没找到~~</div>');    
+                $('ul.post').html('<div class="not-search"><i class="fa fa-frown-o"></i><br>竟然没找到~~</div>');    
             }else {
                 $('ul.post').html(tmp);
             }
