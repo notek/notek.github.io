@@ -8,6 +8,10 @@
 .container-narrow {
   margin: 0 auto;
   max-width:970px;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  margin-left:-48px;
 }
 
 .container-narrow > footer {
@@ -162,10 +166,13 @@ strong {
   .not-search i {
     font-size: 350px !important;
   }
-
+  
+  .post {
+    margin-bottom: 150px !important;
+  }
   .post-list-item a,
   .post-list-item span {
-    font-size: 14px !important;
+    font-size: 12px !important;
   }
 }
 .online-preview .preview-box a {
