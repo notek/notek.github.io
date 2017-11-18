@@ -8,10 +8,6 @@
 .container-narrow {
   margin: 0 auto;
   max-width:970px;
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  margin-left:-48px;
 }
 
 .container-narrow > footer {
@@ -173,6 +169,13 @@ strong {
   .post-list-item a,
   .post-list-item span {
     font-size: 12px !important;
+  }
+
+  .container-narrow {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    margin-left:-48px;
   }
 }
 .online-preview .preview-box a {
