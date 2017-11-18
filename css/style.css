@@ -498,3 +498,15 @@ td {
   *zoom: 1;
 }
 
+#notek-search {
+  color: #fff;
+  border: none;
+  height: auto;
+  padding: 15px;
+  margin-bottom:1em;
+  transition: all .3s;
+  background-color: rgba(0 ,0, 0, .5);
+}
+#notek-search:focus {
+  background-color: rgba(0 ,0, 0, .8);
+}

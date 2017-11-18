@@ -37,6 +37,40 @@ $(document).ready(function() {
 	//设置首页内容区高度
 	var height = $('html').height();
 	$('.index-page').css('height', height * .7);
+
+    // 搜索文章 简易版处理.
+    var searchTimer,
+        titles = $('ul.post li b'),
+        titleBoxs = $('ul.post li');
+    $('#notek-search').bind('input porpertychange', e => {
+        var val = e.target.value,
+            boxs = $('ul.post li');
+
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            var tmp = [];
+
+            titles.each(function() {
+                var that = $(this);
+                if($(this).text().indexOf(val) !== -1) {
+                    titleBoxs.each(function(i) {
+                        if($(this).find('b').text() == that.text()) {
+                            tmp.push(titleBoxs[i]);
+                        };
+                    });
+                }
+            });
+
+            // if(tmp.length === 0) tmp = titleBoxs;
+
+            if(tmp.length <= 0) {
+                $('ul.post').html('<div style="color: #dcdcdc;opacity: .85;text-align: center;font-size: 80px;padding-bottom: 100px;"><i class="fa fa-frown-o" style="font-size: 600px;"></i><br>竟然没找到~~</div>');    
+            }else {
+                $('ul.post').html(tmp);
+            }
+                
+        }, 1000);
+    });
 });
 
 $(window).resize(function () {
