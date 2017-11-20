@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html >
+<html class="pagehome">
 <head>
   <meta charset="utf-8">
   
-  <title>archive_b | notek&#39;s Blog</title>
+  <title>page | notek&#39;s Blog</title>
   <meta name="author" content="notek">
   
   
@@ -33,9 +33,11 @@
 
 </head>
 
-<body id="body" data-spy="scroll" data-target=".toc" >
+<body id="body" data-spy="scroll" data-target=".toc" class="pagehome">
 	<!-- canvas for pointer. -->
-	
+	<div id="pointer-box" class="large-header">
+  <canvas id="pointer" width="0" height="0"></canvas>
+</div>
 
 	
   <div class="container" id="container">
@@ -206,6 +208,25 @@
 <script src="/js/tocgenerator.min.js"></script>
 <script src="/js/main.js"></script>
 
+
+	<script>
+		var isloading = !/android|iphone|ipad|ipod/g.test(navigator.userAgent.toLowerCase());
+		var addScript = function(name) {
+			var js = document.createElement('script');
+		  	js.src = '/js/'+ name +'js';
+		 	document.getElementsByTagName('body')[0].appendChild(js); 
+		};
+		if(isloading) {
+			var src = ['TweenLite.min.', 'EasePack.min.'];
+			for(var i=0; i<2; i++) {
+				addScript(src[i]); 	
+			}
+		}
+
+		window.onload = function() {
+			isloading && addScript('pointer.');
+		};
+	</script>
 
 
 

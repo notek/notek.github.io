@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>博客找回来了 | notek&#39;s Blog</title>
+  <title>React Native调试记录(持续更新) | notek&#39;s Blog</title>
   <meta name="author" content="notek">
   
-  <meta name="description" content="说说想了很久，以前认为写博客有点浪费时间，有什么东西不如本地工具记录来的直观、快速，但上次换电脑一不小心将所有记录的东西都丢了才想起博客的好。于是，昨晚通过mac time machine将博客源代码找回来之后，花了几个小时将博客重新搭建起来，以后有东西本地和博客同步更新。方便自己随时随地查阅。
-博">
+  <meta name="description" content="Command /usr/bin/codesign failed with exit code 1解决办法：删除ios/build目录并重新react-native run-ios
+make sure you’re running a packager server or have included">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="博客找回来了"/>
+  <meta property="og:title" content="React Native调试记录(持续更新)"/>
   <meta property="og:site_name" content="notek&#39;s Blog"/>
 
   
@@ -45,7 +45,7 @@
 
 	<div class="content">
 	  <div class="page-header">		
-  <h1><span class="title">博客找回来了</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2017-11-18</span></h1>
+  <h1><span class="title">React Native调试记录(持续更新)</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2017-11-20</span></h1>
 </div>		
 
 <div class="row page page-custom">
@@ -58,10 +58,8 @@
 	  
 
 	  <!-- content -->
-	  <h3 id="说说"><a href="#说说" class="headerlink" title="说说"></a>说说</h3><p>想了很久，以前认为写博客有点浪费时间，有什么东西不如本地工具记录来的直观、快速，但上次换电脑一不小心将所有记录的东西都丢了才想起博客的好。于是，昨晚通过<code>mac time machine</code>将博客源代码找回来之后，花了几个小时将博客重新搭建起来，以后有东西本地和博客同步更新。方便自己随时随地查阅。</p>
-<p>博客丢了的这段时间，其实很多时候，有一些东西想用一些文字记录下来，但本地工具始终比较零散，文字组织能力没有博客用心，时间久了自己查阅其实也有一定的再学习成本。</p>
-<p>总之，以后有什么没什么的东西都往博客丢就对了，或许几年以后再来看，还能总结出自己的成长轨迹。</p>
-<h3 id="不说了"><a href="#不说了" class="headerlink" title="不说了"></a>不说了</h3><p>就酱紫吧，很无厘头的一篇。</p>
+	  <h3 id="Command-usr-bin-codesign-failed-with-exit-code-1"><a href="#Command-usr-bin-codesign-failed-with-exit-code-1" class="headerlink" title="Command /usr/bin/codesign failed with exit code 1"></a>Command /usr/bin/codesign failed with exit code 1</h3><p>解决办法：删除<code>ios/build</code>目录并重新<code>react-native run-ios</code></p>
+<h3 id="make-sure-you’re-running-a-packager-server-or-have-included-a-jsbundle"><a href="#make-sure-you’re-running-a-packager-server-or-have-included-a-jsbundle" class="headerlink" title="make sure you’re running a packager server or have included a.jsbundle"></a>make sure you’re running a packager server or have included a.jsbundle</h3><p>出现这个错误原因就比较多了，我是通过在ios模拟器运行期间更新依赖包以及重新编译解决：<br><code>npm install &amp;&amp; react-native run-ios</code> <strong> ios模拟器必须在运行中 </strong></p>
 	  
 
 	  <div>
@@ -75,10 +73,6 @@
 	
 		
 			
-		
-	
-		
-			
 			
 		
 	
@@ -118,12 +112,16 @@
 			
 		
 	
+		
+			
+		
 	
-		<li class="prev"><a href="/20171120/title: React Native调试记录(持续更新)/" class="alignleft prev"><i class="fa fa-angle-left"></i>上一篇</a></li>
+	
+		<li class="prev disabled"><a><i class="fa fa-angle-left"></i>没有了</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>首页</a></li>
 	
-		<li class="next"><a href="/20160405/react+gulp环境搭建/" class="alignright next">下一篇<i class="fa fa-angle-right"></i></a></li>
+		<li class="next"><a href="/20171118/title: 博客找回来了/" class="alignright next">下一篇<i class="fa fa-angle-right"></i></a></li>
 	
 </ul>
 </div>
