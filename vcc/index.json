@@ -1,0 +1,27 @@
+{
+  "name": "Notek VCC Repository",
+  "author": "notoito",
+  "url": "https://notek.github.io/vcc/index.json",
+  "id": "jp.notek.vcc-listing",
+  "packages": {
+    "jp.notek.udux": {
+      "versions": {
+        "0.0.1": {
+          "name": "jp.notek.udux",
+          "displayName": "Udux",
+          "version": "0.0.1",
+          "unity": "2022.3",
+          "description": "Flux like architecture for Udon.",
+          "author": {
+            "name": "伊東ノト",
+            "email": "notoito.public+notek@gmail.com",
+            "url": "https://social.nohto.net"
+          },
+          "vrchatVersion": "2023.4.2",
+          "zipSHA256": "ea1ec7496f62c3cf7d662bdc0b50681f5c84fd15",
+          "url": "https://github.com/notek/udux/releases/download/0.0.1/jp.notek.udux-0.0.1.zip"
+        }
+      }
+    }
+  }
+}
