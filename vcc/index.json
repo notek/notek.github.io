@@ -82,6 +82,25 @@
           "url": "https://github.com/notek/udux/releases/download/2.0.1/jp.notek.udux-2.0.1.zip"
         }
       }
+    },
+    "jp.notek.rocky": {
+      "versions": {
+        "0.0.1": {
+          "name": "jp.notek.rocky",
+          "displayName": "Rocky",
+          "version": "0.0.1",
+          "unity": "2022.3",
+          "description": "VRChat TV System based on YouTube playlist.",
+          "author": {
+            "name": "伊東ノト",
+            "email": "notoito.public+notek@gmail.com",
+            "url": "https://social.nohto.net"
+          },
+          "vrchatVersion": "2023.4.2",
+          "zipSHA256": "12c57503cf7c77540ce609558915ae21838efa1a",
+          "url": "https://github.com/notek/rocky/releases/download/0.0.1/jp.notek.rocky-0.0.1.zip"
+        }
+      }
     }
   }
 }
