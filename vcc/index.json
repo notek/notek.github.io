@@ -129,6 +129,21 @@
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "4b922c0a1da5c4742ea8068c55513d1d369b00e6",
           "url": "https://github.com/notek/rocky/releases/download/0.0.3/jp.notek.rocky-0.0.3.zip"
+        },
+        "0.0.4": {
+          "name": "jp.notek.rocky",
+          "displayName": "Rocky",
+          "version": "0.0.4",
+          "unity": "2022.3",
+          "description": "VRChat TV System based on YouTube playlist.",
+          "author": {
+            "name": "伊東ノト",
+            "email": "notoito.public+notek@gmail.com",
+            "url": "https://social.nohto.net"
+          },
+          "vrchatVersion": "2023.4.2",
+          "zipSHA256": "f0c4599ca1137d1523762b5908d15773058e4222",
+          "url": "https://github.com/notek/rocky/releases/download/0.0.4/jp.notek.rocky-0.0.4.zip"
         }
       }
     }
