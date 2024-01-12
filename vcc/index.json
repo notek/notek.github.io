@@ -95,6 +95,21 @@
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "4b2f146400239dcaf89157e397f8600e81127e63",
           "url": "https://github.com/notek/udux/releases/download/2.1.0/jp.notek.udux-2.1.0.zip"
+        },
+        "2.1.1": {
+          "name": "jp.notek.udux",
+          "displayName": "Udux",
+          "version": "2.1.1",
+          "unity": "2022.3",
+          "description": "Flux like architecture for Udon.",
+          "author": {
+            "name": "伊東ノト",
+            "email": "notoito.public+notek@gmail.com",
+            "url": "https://social.nohto.net"
+          },
+          "vrchatVersion": "2023.4.2",
+          "zipSHA256": "b7c80ed5f2703963aae315e767165422d9277426",
+          "url": "https://github.com/notek/udux/releases/download/2.1.1/jp.notek.udux-2.1.1.zip"
         }
       }
     },
