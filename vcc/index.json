@@ -11,6 +11,9 @@
           "displayName": "Udux",
           "version": "0.0.1",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -26,6 +29,9 @@
           "displayName": "Udux",
           "version": "1.0.0",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -41,6 +47,9 @@
           "displayName": "Udux",
           "version": "1.1.0",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -56,6 +65,9 @@
           "displayName": "Udux",
           "version": "2.0.0",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -71,6 +83,9 @@
           "displayName": "Udux",
           "version": "2.0.1",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -86,6 +101,9 @@
           "displayName": "Udux",
           "version": "2.1.0",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -101,6 +119,9 @@
           "displayName": "Udux",
           "version": "2.1.1",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "Flux like architecture for Udon.",
           "author": {
             "name": "伊東ノト",
@@ -120,6 +141,9 @@
           "displayName": "Rocky",
           "version": "0.0.1",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "VRChat TV System based on YouTube playlist.",
           "author": {
             "name": "伊東ノト",
@@ -135,6 +159,9 @@
           "displayName": "Rocky",
           "version": "0.0.2",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "VRChat TV System based on YouTube playlist.",
           "author": {
             "name": "伊東ノト",
@@ -150,6 +177,9 @@
           "displayName": "Rocky",
           "version": "0.0.3",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "VRChat TV System based on YouTube playlist.",
           "author": {
             "name": "伊東ノト",
@@ -165,6 +195,9 @@
           "displayName": "Rocky",
           "version": "0.0.4",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0"
+          },
           "description": "VRChat TV System based on YouTube playlist.",
           "author": {
             "name": "伊東ノト",
@@ -180,6 +213,10 @@
           "displayName": "Rocky",
           "version": "0.0.5",
           "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.5.0",
+            "jp.notek.udux": "2.0.1"
+          },
           "description": "VRChat TV System based on YouTube playlist.",
           "author": {
             "name": "伊東ノト",
