@@ -4,151 +4,25 @@
   "url": "https://notek.github.io/vcc/index.json",
   "id": "jp.notek.vcc-listing",
   "packages": {
-    "jp.notek.udux": {
+    "jp.notek.atomicsoup": {
       "versions": {
         "0.0.1": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
+          "name": "jp.notek.atomicsoup",
+          "displayName": "AtomicSoup",
           "version": "0.0.1",
           "unity": "2022.3",
           "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
+            "com.vrchat.worlds": "^3.7.5"
           },
-          "description": "Flux like architecture for Udon.",
+          "description": "AtomicSoup is an atom framework for Udon.",
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "ea1ec7496f62c3cf7d662bdc0b50681f5c84fd15",
-          "url": "https://github.com/notek/udux/releases/download/0.0.1/jp.notek.udux-0.0.1.zip"
-        },
-        "1.0.0": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "1.0.0",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "6f4dadcfb973bad0c962c2f86492f7db92ae93ba",
-          "url": "https://github.com/notek/udux/releases/download/1.0.0/jp.notek.udux-1.0.0.zip"
-        },
-        "1.1.0": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "1.1.0",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "48676e3f53159d22c67f133430d879e55968ac05",
-          "url": "https://github.com/notek/udux/releases/download/1.1.0/jp.notek.udux-1.1.0.zip"
-        },
-        "2.0.0": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "2.0.0",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "fca54ce19f3b922fb301979f1018674127d80f8a",
-          "url": "https://github.com/notek/udux/releases/download/2.0.0/jp.notek.udux-2.0.0.zip"
-        },
-        "2.0.1": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "2.0.1",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "07094cbae859afe7b6f267efd7dfe648f5b9e3aa",
-          "url": "https://github.com/notek/udux/releases/download/2.0.1/jp.notek.udux-2.0.1.zip"
-        },
-        "2.1.0": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "2.1.0",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "4b2f146400239dcaf89157e397f8600e81127e63",
-          "url": "https://github.com/notek/udux/releases/download/2.1.0/jp.notek.udux-2.1.0.zip"
-        },
-        "2.1.1": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "2.1.1",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2023.4.2",
-          "zipSHA256": "b7c80ed5f2703963aae315e767165422d9277426",
-          "url": "https://github.com/notek/udux/releases/download/2.1.1/jp.notek.udux-2.1.1.zip"
-        },
-        "3.0.0": {
-          "name": "jp.notek.udux",
-          "displayName": "Udux",
-          "version": "3.0.0",
-          "unity": "2022.3",
-          "vpmDependencies": {
-            "com.vrchat.worlds": "^3.5.0"
-          },
-          "description": "Flux like architecture for Udon.",
-          "author": {
-            "name": "伊東ノト",
-            "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
-          },
-          "vrchatVersion": "2024.2.3p2",
-          "zipSHA256": "93336286b3e1d8b1aaba713643970d4cd898be35a3e3788d4367d5dc758cf0b7",
-          "url": "https://github.com/notek/udux/releases/download/3.0.0/jp.notek.udux-3.0.0.zip"
+          "vrchatVersion": "2024.4.1",
+          "zipSHA256": "994D3DB0FF46FD94BA8B7E21DB201F7213BC30C53A3F26C4CABCDD991EA77973",
+          "url": "https://github.com/notek/AtomicSoup/releases/download/0.0.1/jp.notek.atomicsoup-0.0.1.zip"
         }
       }
     },
@@ -166,7 +40,7 @@
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "12c57503cf7c77540ce609558915ae21838efa1a",
@@ -184,7 +58,7 @@
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "2ead52c0ee1ac09b457928a688acc298755672a4",
@@ -202,7 +76,7 @@
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "4b922c0a1da5c4742ea8068c55513d1d369b00e6",
@@ -220,7 +94,7 @@
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "f0c4599ca1137d1523762b5908d15773058e4222",
@@ -239,7 +113,7 @@
           "author": {
             "name": "伊東ノト",
             "email": "notoito.public+notek@gmail.com",
-            "url": "https://social.nohto.net"
+            "url": "https://notoitoh.notek.jp"
           },
           "vrchatVersion": "2023.4.2",
           "zipSHA256": "b7d417388b3f6743c4ece4f67f46ab9d1ccf89b9",
