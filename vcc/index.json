@@ -6,6 +6,24 @@
   "packages": {
     "jp.notek.atomicsoup": {
       "versions": {
+        "0.0.2": {
+          "name": "jp.notek.atomicsoup",
+          "displayName": "AtomicSoup",
+          "version": "0.0.2",
+          "unity": "2022.3",
+          "vpmDependencies": {
+            "com.vrchat.worlds": "^3.7.5"
+          },
+          "description": "AtomicSoup is an atom framework for Udon.",
+          "author": {
+            "name": "伊東ノト",
+            "email": "notoito.public+notek@gmail.com",
+            "url": "https://notoitoh.notek.jp"
+          },
+          "vrchatVersion": "2024.4.1",
+          "zipSHA256": "3FE6F7E0AFAF439AFB7AF830709DC5EF7214A8152B9F1D501CD152A1F4F39CAC",
+          "url": "https://github.com/notek/AtomicSoup/releases/download/0.0.2/jp.notek.atomicsoup-0.0.2.zip"
+        },
         "0.0.1": {
           "name": "jp.notek.atomicsoup",
           "displayName": "AtomicSoup",
